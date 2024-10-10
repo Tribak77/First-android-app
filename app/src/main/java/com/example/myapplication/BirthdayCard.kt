@@ -1,10 +1,13 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.os.Message
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -21,6 +24,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.layout.VerticalAlignmentLine
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 
 class BirthdayCard : ComponentActivity() {
@@ -28,25 +32,12 @@ class BirthdayCard : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-//            MyApplicationTheme {
-//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-//                    BirthdayGreeting(
-//                        name = "Ayoub tribak",
-//                        form = "From Emma",
-//                        modifier = Modifier.padding(innerPadding)
-//                    )
-//                }
-//            }
             MyApplicationTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    BirthdayGreeting(
-                        name = "Happy Birthday Ayoub!",
-                        from = "From Emma",
-                        modifier = Modifier.padding(8.dp)
-                    )
+                    GreetingImage( )
                 }
             }
         }
@@ -55,8 +46,8 @@ class BirthdayCard : ComponentActivity() {
 
 @Composable
 fun BirthdayGreeting(name: String, from: String, modifier: Modifier = Modifier) {
-    Surface(color = Color.Cyan, modifier = Modifier.fillMaxSize()) {
-    }
+//    Surface(color = Color.Cyan, modifier = Modifier.fillMaxSize()) {
+//    }
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = modifier
@@ -78,10 +69,28 @@ fun BirthdayGreeting(name: String, from: String, modifier: Modifier = Modifier) 
 
 }
 
+@Composable
+fun GreetingImage(modifier: Modifier = Modifier){
+    val image = painterResource(R.drawable.androidparty)
+    Box(modifier) {
+        Image(
+            painter = image,
+            contentDescription = null
+        )
+        BirthdayGreeting(
+            name = "Ayoub!",
+            from = "From Emma",
+            modifier = Modifier.padding(8.dp)
+        )
+    }
+
+}
+
+
 @Preview(showBackground = true, name = "My preview", showSystemUi= true)
 @Composable
 fun BirthdayGreetingPreview() {
     MyApplicationTheme {
-        BirthdayGreeting(name = "Ayoub", from = "From Emma")
+        GreetingImage()
     }
 }
